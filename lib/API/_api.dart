@@ -4,18 +4,16 @@ class AttandanceAPI {
   //function to split the id from the qrcode data to send the id to the api
   String getID(String result) {
     String id;
-    // print("the result is : $result");
+    print("the result is : $result");
 
-    id = result.split('/')[0];
-    // print("the id is : ${id.length}");
+    id = result.split('\\')[0];
+    print("the id is : ${id.length}");
     if (id.length > 9) {
       return 'please try again';
     }
 
     return id;
   }
-
-
 
   //?under working .......
 
