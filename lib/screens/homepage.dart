@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:qrscanner/API/_api.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   HomePageState createState() {
     return HomePageState();
@@ -15,19 +17,17 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   String result = "Hey there !";
 
-  //create an object of the api class to get id and send the request 
+  //create an object of the api class to get id and send the request
   final apiTool = AttandanceAPI();
 
-
-//scan function to scan the qr code 
+//scan function to scan the qr code
   Future _scanQR() async {
     try {
       ScanResult qrResult = await BarcodeScanner.scan();
       // print(qrResult.type);
-      
 
       setState(() {
-        result =apiTool.getID(qrResult.rawContent);
+        result = apiTool.getID(qrResult.rawContent);
       });
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.cameraAccessDenied) {
@@ -63,8 +63,10 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.camera_alt),
-        label: const Text("Scan"),
+        // focusColor: Colors.purple,
+        label: Row(
+          children: const [Icon(Icons.camera_alt_rounded), Text('Scan')],
+        ),
         onPressed: _scanQR,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
